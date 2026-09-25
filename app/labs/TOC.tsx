@@ -6,7 +6,9 @@ export default function TOC() {
       <h5>CS5610 Xinyu</h5>
       <ul>
         <li>
-          <Link href="/labs">Labs</Link>
+          <Link href="/labs" id="wd-home-link">
+            Home
+          </Link>
         </li>
         <li>
           <Link href="/labs/lab1">Lab 1</Link>
@@ -29,7 +31,9 @@ export default function TOC() {
           </Link>
         </li>
         <li>
-          <Link href="/kambaz">Kambaz</Link>
+          <Link href="/" id="wd-kambaz-link">
+            kambaz
+          </Link>
         </li>
       </ul>
     </div>
