@@ -4,6 +4,9 @@ export default function TOC() {
   return (
     <div>
       <h5>Xinyu Wang</h5>
+      <a href="https://github.com/wangx24/cs5610-webdev-client" id="wd-github">
+        GitHub
+      </a>
       <ul>
         <li>
           <Link href="/labs" id="wd-home-link">
@@ -32,7 +35,7 @@ export default function TOC() {
         </li>
         <li>
           <Link href="/" id="wd-kambaz-link">
-            kambaz
+            Kambaz
           </Link>
         </li>
       </ul>
