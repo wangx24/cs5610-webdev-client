@@ -48,7 +48,6 @@
   }
   @media (min-width: 1250px) {
     .wd-media-queries-demo {
-      /* On your own: changed from red to orange */
       background-color: orange;
       color: white;
     }
