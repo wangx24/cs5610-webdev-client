@@ -30,7 +30,7 @@ const LINKS = [
     href: "/labs/lab4",
     id: "wd-lab4-link",
     label: "Lab 4",
-    match: () => false,
+    match: (p: string) => p.includes("/lab4"),
   },
   {
     href: "/labs/lab5",
