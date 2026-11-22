@@ -67,6 +67,17 @@ export default function TOC() {
       <a href="https://github.com/wangx24/cs5610-webdev-client" id="wd-github">
         GitHub
       </a>
+      <br />
+      <a
+        href="https://github.com/wangx24/cs5610-webdev-server"
+        id="wd-github-server"
+      >
+        Server GitHub
+      </a>
+      <br />
+      <a href="https://cs5610-webdev-server.onrender.com" id="wd-render-server">
+        Render Server
+      </a>
       <ul>
         {LINKS.map((link) => {
           const active = link.match(pathname);
