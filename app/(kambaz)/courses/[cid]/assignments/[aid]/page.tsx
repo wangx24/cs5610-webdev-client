@@ -1,6 +1,7 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
+import * as client from "../../../client";
 import {
   useAssignmentsStore,
   type Assignment,
@@ -12,6 +13,7 @@ export default function AssignmentEditor() {
   const assignmentId = typeof aid === "string" ? aid : "";
   const router = useRouter();
   const assignments = useAssignmentsStore((state) => state.assignments);
+  const setAssignments = useAssignmentsStore((state) => state.setAssignments);
   const addAssignment = useAssignmentsStore((state) => state.addAssignment);
   const updateAssignment = useAssignmentsStore(
     (state) => state.updateAssignment,
@@ -30,11 +32,27 @@ export default function AssignmentEditor() {
   const [assignment, setAssignment] = useState<Assignment>(
     existing ?? emptyAssignment,
   );
-  const save = () => {
+  useEffect(() => {
+    if (assignmentId === "new") return;
+    const load = async () => {
+      const list: Assignment[] =
+        await client.findAssignmentsForCourse(courseId);
+      setAssignments(list);
+      const found = list.find((a) => a._id === assignmentId);
+      if (found) setAssignment(found);
+    };
+    load();
+  }, [courseId, assignmentId]);
+  const save = async () => {
     if (assignmentId === "new") {
-      addAssignment({ ...assignment, course: courseId });
+      const created = await client.createAssignmentForCourse(courseId, {
+        ...assignment,
+        course: courseId,
+      });
+      addAssignment(created);
     } else {
-      updateAssignment(assignment);
+      const saved = await client.updateAssignment(assignment);
+      updateAssignment(saved);
     }
     router.push(`/courses/${courseId}/assignments`);
   };

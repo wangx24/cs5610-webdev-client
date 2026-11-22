@@ -4,8 +4,8 @@ import { useParams, useRouter } from "next/navigation";
 import { FaAlignJustify } from "react-icons/fa6";
 import CourseNavigation from "./Navigation";
 import Breadcrumb from "./Breadcrumb";
-import { useCoursesStore } from "../../store/coursesStore";
-import { useEnrollmentsStore } from "../../store/enrollmentsStore";
+import * as client from "../client";
+import { type Course } from "../../store/coursesStore";
 import { useAccountContext } from "../../account/AccountContext";
 export default function CoursesLayout({
   children,
@@ -15,22 +15,24 @@ export default function CoursesLayout({
   const { cid } = useParams();
   const courseId = typeof cid === "string" ? cid : "";
   const router = useRouter();
-  const courses = useCoursesStore((state) => state.courses);
-  const course = courses.find((c) => c._id === courseId);
-  const enrollments = useEnrollmentsStore((state) => state.enrollments);
   const { currentUser } = useAccountContext();
-  const allowed =
-    !currentUser ||
-    enrollments.some(
-      (enrollment) =>
-        enrollment.user === currentUser._id && enrollment.course === courseId,
-    );
+  const [course, setCourse] = useState<Course | undefined>(undefined);
+  const [allowed, setAllowed] = useState(true);
   const [showCourseNav, setShowCourseNav] = useState(true);
   useEffect(() => {
-    if (!allowed) {
-      router.push("/dashboard");
-    }
-  }, [allowed, router]);
+    const load = async () => {
+      const all: Course[] = await client.fetchAllCourses();
+      setCourse(all.find((c) => c._id === courseId));
+      if (currentUser) {
+        const mine: Course[] = await client.findMyCourses();
+        if (!mine.some((c) => c._id === courseId)) {
+          setAllowed(false);
+          router.push("/dashboard");
+        }
+      }
+    };
+    load();
+  }, [courseId, currentUser, router]);
   if (!allowed) return null;
   return (
     <div id="wd-courses">
