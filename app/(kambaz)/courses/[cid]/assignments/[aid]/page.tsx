@@ -52,7 +52,7 @@ export default function AssignmentEditor() {
       addAssignment(created);
     } else {
       const saved = await client.updateAssignment(assignment);
-      updateAssignment(saved);
+      updateAssignment(assignment);
     }
     router.push(`/courses/${courseId}/assignments`);
   };

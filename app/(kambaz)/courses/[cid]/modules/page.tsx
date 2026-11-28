@@ -34,7 +34,7 @@ export default function Modules() {
   };
   const onUpdateModule = async (module: CourseModule) => {
     const saved = await client.updateModule(module);
-    updateModule(saved);
+    updateModule(module);
   };
   return (
     <div>

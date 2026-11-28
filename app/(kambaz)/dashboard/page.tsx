@@ -40,7 +40,7 @@ export default function Dashboard() {
   };
   const onUpdateCourse = async () => {
     const saved = await client.updateCourse(course);
-    updateCourse(saved);
+    updateCourse(course);
   };
   const onToggleEnrollment = async (courseId: string) => {
     if (!currentUser) return;
