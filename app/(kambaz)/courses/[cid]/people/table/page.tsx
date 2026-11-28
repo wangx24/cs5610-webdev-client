@@ -1,10 +1,6 @@
-import PeopleTable from "./PeopleTable";
+"use client";
+import PeopleTable from "../Table";
 
-export default async function PeopleTablePage({
-  params,
-}: {
-  params: Promise<{ cid: string }>;
-}) {
-  const { cid } = await params;
-  return <PeopleTable cid={cid} />;
+export default function PeopleTablePage() {
+  return <PeopleTable fetchUsers={() => {}} />;
 }

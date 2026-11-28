@@ -75,7 +75,10 @@ export default function TOC() {
         Server GitHub
       </a>
       <br />
-      <a href="https://cs5610-webdev-server.onrender.com" id="wd-render-server">
+      <a
+        href="https://cs5610-webdev-server-a6.onrender.com"
+        id="wd-render-server"
+      >
         Render Server
       </a>
       <ul>
